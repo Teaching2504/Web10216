@@ -127,7 +127,7 @@
     </div>
 
     <div style="text-align: center;">
-        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+        <a href="../javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
     </div>
 
     <script type="text/javascript">
@@ -149,7 +149,11 @@
         function drawChart() {
             const labelsStr = document.getElementById("txtLabels").value;
             const valuesStr = document.getElementById("txtValues").value;
-            const chartType = document.querySelector('input[name="chartType"]:checked').value;
+
+            if (!labelsStr || !valuesStr) {
+                alert("Vui lòng nhập đầy đủ tiêu đề và giá trị!");
+                return;
+            }
 
             const labels = labelsStr.split(',').map(s => s.trim());
             const values = valuesStr.split(',').map(s => parseFloat(s.trim()));
@@ -159,14 +163,7 @@
                 return;
             }
 
-            if (!googleLoaded || typeof google === 'undefined' || !google.visualization) {
-                document.getElementById('chart_div').innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #555;">
-                        <p><b>Đang tải thư viện Google Chart hoặc offline.</b></p>
-                        <p>Dữ liệu: ${labels.map((l, i) => l + ': ' + values[i]).join(' | ')}</p>
-                    </div>`;
-                return;
-            }
+            const chartType = document.querySelector('input[name="chartType"]:checked').value;
 
             const data = new google.visualization.DataTable();
             data.addColumn('string', 'Tiêu chí');
