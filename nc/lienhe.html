@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công ty Máy tính ABC - Liên hệ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .wrapper {
+            width: 950px;
+            margin: 15px auto;
+            border: 2px solid #00bcd4;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        header {
+            background-color: #00bcd4;
+            padding: 15px 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-auth {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 11px;
+        }
+
+        .header-auth a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .company-title {
+            color: #ffff00;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            background-color: #00796b;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item a.nav-link {
+            display: block;
+            padding: 0 14px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 40px;
+            transition: background 0.2s;
+        }
+
+        .nav-item a.nav-link:hover,
+        .nav-item a.nav-link.active {
+            background-color: #004d40;
+            color: #ffff00;
+        }
+
+        .service-dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #00796b;
+            min-width: 150px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            list-style: none;
+            border-top: 1px solid #4db6ac;
+        }
+
+        .service-dropdown li a {
+            display: block;
+            padding: 8px 14px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            border-bottom: 1px solid #004d40;
+            transition: all 0.2s;
+        }
+
+        .service-dropdown li a:hover {
+            background-color: #004d40;
+            color: #ffff00;
+            padding-left: 18px;
+        }
+
+        .nav-item:hover .service-dropdown {
+            display: block;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-search input {
+            padding: 3px 6px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .nav-search button {
+            padding: 3px 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            background: #e0e0e0;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+
+        #body {
+            background-color: #ffffff;
+        }
+
+        article {
+            display: flex;
+            min-height: 480px;
+        }
+
+        aside#left {
+            width: 170px;
+            border-right: 1px solid #b2ebf2;
+            padding: 10px 8px;
+            flex-shrink: 0;
+        }
+
+        .category-group {
+            margin-bottom: 15px;
+        }
+
+        .category-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 10px;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        .category-list {
+            list-style: none;
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            border-top: none;
+        }
+
+        .category-list li a {
+            display: block;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #006064;
+            text-decoration: none;
+            border-bottom: 1px solid #b2ebf2;
+            transition: background 0.2s;
+        }
+
+        .category-list li a:hover {
+            background-color: #b2ebf2;
+            font-weight: bold;
+        }
+
+        section {
+            flex-grow: 1;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .section-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 12px;
+            text-align: center;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        .contact-form {
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .contact-form .form-row {
+            margin-bottom: 12px;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 13px;
+            border: 1px solid #b2ebf2;
+            border-radius: 3px;
+        }
+
+        .btn-submit {
+            background-color: #00838f;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            background-color: #006064;
+        }
+
+        aside#right {
+            width: 180px;
+            border-left: 1px solid #b2ebf2;
+            padding: 10px 8px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .right-box-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 8px;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        .promo-scroll-container {
+            height: 160px;
+            border: 1px solid #b2ebf2;
+            background-color: #e0f7fa;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .promo-scroll-content {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            animation: scrollUp 8s linear infinite;
+        }
+
+        @keyframes scrollUp {
+            0% { top: 100%; }
+            100% { top: -160%; }
+        }
+
+        .promo-item {
+            width: 80px;
+            height: 60px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .stat-content {
+            border: 1px solid #b2ebf2;
+            background-color: #e0f7fa;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .link-select {
+            width: 100%;
+            padding: 4px;
+            font-size: 11px;
+            border: 1px solid #b2ebf2;
+        }
+
+        footer {
+            background-color: #00bcd4;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 15px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px auto;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header-auth">
+                <a href="#">Đăng nhập</a>
+                <a href="#">Đăng ký</a>
+                <a href="#">Giỏ hàng (0)</a>
+            </div>
+            <div class="company-title">CÔNG TY MÁY TÍNH ABC</div>
+        </header>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="abc_index.html" class="nav-link">TRANG CHỦ</a></li>
+                <li class="nav-item"><a href="gioithieu.html" class="nav-link">GIỚI THIỆU</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">DỊCH VỤ ▾</a>
+                    <ul class="service-dropdown">
+                        <li><a href="#">Bảo hành</a></li>
+                        <li><a href="#">Đổi trả</a></li>
+                        <li><a href="#">Sửa chữa tại nhà</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="lienhe.html" class="nav-link active">LIÊN HỆ</a></li>
+            </ul>
+
+            <div class="nav-search">
+                <input type="text" placeholder="Nhập từ khóa để tìm...">
+                <button type="button">Tìm</button>
+            </div>
+        </nav>
+
+        <div id="body">
+            <article>
+                <aside id="left">
+                    <div class="category-group">
+                        <div class="category-header">LAPTOP</div>
+                        <ul class="category-list">
+                            <li><a href="laptop_acer.html">Acer</a></li>
+                            <li><a href="laptop_dell.html">Dell</a></li>
+                            <li><a href="#">HP</a></li>
+                            <li><a href="#">Asus</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-header">MÁY BỘ (DESKTOP)</div>
+                        <ul class="category-list">
+                            <li><a href="#">Máy bộ Dell</a></li>
+                            <li><a href="#">Máy bộ HP</a></li>
+                            <li><a href="#">Máy bộ Asus</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-header">LINH KIỆN</div>
+                        <ul class="category-list">
+                            <li><a href="#">RAM</a></li>
+                            <li><a href="#">Ổ cứng SSD/HDD</a></li>
+                            <li><a href="#">Mainboard</a></li>
+                            <li><a href="#">VGA Card</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <section>
+                    <div class="section-header">THÔNG TIN LIÊN HỆ</div>
+
+                    <div class="contact-form">
+                        <form onsubmit="alert('Cảm ơn bạn đã gửi liên hệ!'); return false;">
+                            <div class="form-row">
+                                <label>Họ và tên:</label>
+                                <input type="text" required placeholder="Nhập họ và tên...">
+                            </div>
+
+                            <div class="form-row">
+                                <label>Email:</label>
+                                <input type="email" required placeholder="Nhập địa chỉ email...">
+                            </div>
+
+                            <div class="form-row">
+                                <label>Số điện thoại:</label>
+                                <input type="tel" required placeholder="Nhập số điện thoại...">
+                            </div>
+
+                            <div class="form-row">
+                                <label>Nội dung liên hệ:</label>
+                                <textarea rows="4" required placeholder="Nội dung cần liên hệ hỗ trợ..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">Gửi tin nhắn</button>
+                        </form>
+                    </div>
+                </section>
+
+                <aside id="right">
+                    <div>
+                        <div class="right-box-header">SIÊU KHUYẾN MÃI</div>
+                        <div class="promo-scroll-container">
+                            <div class="promo-scroll-content">
+                                <div class="promo-item">💻</div>
+                                <div class="promo-item">🖱️</div>
+                                <div class="promo-item">⌨️</div>
+                                <div class="promo-item">🖥️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="right-box-header">THỐNG KÊ TRUY CẬP</div>
+                        <div class="stat-content">1000</div>
+                    </div>
+
+                    <div>
+                        <div class="right-box-header">LIÊN KẾT WEBSITE</div>
+                        <select class="link-select" onchange="if(this.value) window.open(this.value, '_blank')">
+                            <option value="">-- Chọn trang liên kết --</option>
+                            <option value="https://google.com">Google</option>
+                            <option value="https://vnexpress.net">VnExpress</option>
+                            <option value="https://it.ou.edu.vn">Khoa CNTT ĐH Mở</option>
+                        </select>
+                    </div>
+                </aside>
+            </article>
+        </div>
+
+        <footer>
+            <b>Công ty máy tính ABC</b><br>
+            Địa chỉ: 371 Nguyễn Kiệm - Điện thoại: 12345678
+        </footer>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+</body>
+</html>

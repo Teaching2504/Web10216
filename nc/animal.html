@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góc thư giãn - animal.html</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .wrapper {
+            width: 800px;
+            margin: 20px auto;
+            border: 2px solid #0000aa;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Banner */
+        .banner {
+            background-color: #000000;
+            color: #ffffff;
+            height: 90px;
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .banner-title {
+            color: #ff0000;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px #440000;
+        }
+
+        .banner-sub {
+            color: #ffff00;
+            font-size: 13px;
+        }
+
+        /* Main Container */
+        .content-area {
+            display: flex;
+            min-height: 400px;
+            background-color: #000000;
+        }
+
+        /* Sidebar Left */
+        .sidebar {
+            width: 180px;
+            padding: 20px 15px;
+            background-color: #000000;
+            border-right: 1px solid #222;
+        }
+
+        .nav-box {
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-home {
+            background-color: #00e5ff;
+            color: #000000;
+        }
+
+        .nav-array {
+            background-color: #ffff00;
+            color: #000000;
+        }
+
+        /* Hover: màu sắc, font chữ, màu nền thay đổi */
+        .nav-box:hover {
+            background-color: #ff007f;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #ff007f;
+        }
+
+        /* Main Stage */
+        .main-stage {
+            flex-grow: 1;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        .stage-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .animal-content {
+            border: 1px solid #444;
+            padding: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background-color: #111;
+        }
+
+        .img-container {
+            width: 250px;
+            height: 180px;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #222;
+            border: 1px solid #555;
+        }
+
+        .animal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+
+        /* Khi rê chuột vào, phóng to 150% */
+        .img-container:hover .animal-img {
+            transform: scale(1.5);
+        }
+
+        .animal-desc {
+            font-size: 13px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #ddd;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0000aa;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px auto;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-title">GÓC THƯ GIÃN</div>
+            <div class="banner-sub">Môn học: Ứng dụng Web</div>
+        </div>
+
+        <div class="content-area">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <a href="animal.html" class="nav-box nav-home">Trang chủ</a>
+                <a href="array.html" class="nav-box nav-array">Thống kê mảng</a>
+            </div>
+
+            <!-- Main Stage -->
+            <div class="main-stage">
+                <div class="stage-title">THẾ GIỚI ĐỘNG VẬT</div>
+
+                <div class="animal-content">
+                    <div class="img-container">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500" alt="Hình con mèo" class="animal-img">
+                    </div>
+                    <div class="animal-desc">
+                        <p><b>Mèo</b>, chính xác hơn là mèo nhà để phân biệt với các loài trong họ Mèo khác, là động vật có vú nhỏ và ăn thịt, sống chung với loài người, được nuôi để săn vật gây hại hoặc làm thú nuôi. Người ta tin rằng tổ tiên trung gian gần nhất trước khi được thuần hóa của chúng là mèo rừng châu Phi (Felis silvestris lybica). Mèo nhà đã sống gần gũi với loài người ít nhất 9.500 năm và hiện nay chúng là con vật cưng phổ biến nhất trên thế giới.</p>
+                        <br>
+                        <p>Có rất nhiều giống mèo khác nhau, một số không có lông hoặc không có đuôi, và chúng tồn tại với rất nhiều màu lông. Mèo là những con vật có kỹ năng của thú săn mồi và được biết đến với khả năng săn bắt hàng nghìn loài sinh vật để làm thức ăn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Nguyễn Thị Tuyết Trinh - 2351010216
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+</body>
+</html>

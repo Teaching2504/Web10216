@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 06 - Các phép tính số học</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .calc-table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: #ffffff;
+            border: 1px solid #7a92a5;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            width: 380px;
+        }
+
+        .calc-table th {
+            padding: 12px;
+            font-size: 16px;
+            text-align: center;
+            border-bottom: 1px solid #7a92a5;
+            letter-spacing: 0.5px;
+        }
+
+        .calc-table td {
+            padding: 8px 12px;
+            border: 1px solid #c0c6cc;
+            font-size: 14px;
+        }
+
+        .col-label {
+            width: 130px;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 4px 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .radio-group label {
+            display: block;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 5px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <table class="calc-table">
+        <thead>
+            <tr>
+                <th colspan="2">CÁC PHÉP TÍNH SỐ HỌC</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-label">Số thứ 1</td>
+                <td><input type="number" id="num1" value="5" step="any"></td>
+            </tr>
+            <tr>
+                <td class="col-label">Số thứ 2</td>
+                <td><input type="number" id="num2" value="4" step="any"></td>
+            </tr>
+            <tr>
+                <td class="col-label">Chọn phép toán</td>
+                <td class="radio-group">
+                    <label><input type="radio" name="operator" value="+" checked> Cộng</label>
+                    <label><input type="radio" name="operator" value="-"> Trừ</label>
+                    <label><input type="radio" name="operator" value="*"> Nhân</label>
+                    <label><input type="radio" name="operator" value="/"> Chia</label>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="button" onclick="calculate()">Thực hiện</button></td>
+                <td><input type="text" id="result" readonly></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function calculate() {
+            const n1 = parseFloat(document.getElementById("num1").value);
+            const n2 = parseFloat(document.getElementById("num2").value);
+
+            if (isNaN(n1) || isNaN(n2)) {
+                alert("Vui lòng nhập đầy đủ cả hai số hợp lệ!");
+                return;
+            }
+
+            const op = document.querySelector('input[name="operator"]:checked').value;
+            let res = 0;
+
+            switch (op) {
+                case "+":
+                    res = n1 + n2;
+                    break;
+                case "-":
+                    res = n1 - n2;
+                    break;
+                case "*":
+                    res = n1 * n2;
+                    break;
+                case "/":
+                    if (n2 === 0) {
+                        alert("Không thể chia cho số 0!");
+                        document.getElementById("result").value = "Lỗi chia 0";
+                        return;
+                    }
+                    res = n1 / n2;
+                    break;
+            }
+
+            document.getElementById("result").value = Math.round(res * 10000) / 10000;
+        }
+
+        // Thực hiện phép tính mặc định ban đầu
+        calculate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 02 - Tính khoảng cách ngày</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .input-row label {
+            width: 80px;
+            font-size: 14px;
+        }
+
+        .input-row input {
+            padding: 5px 8px;
+            font-size: 14px;
+            border: 1px solid #aaa;
+            width: 150px;
+        }
+
+        .btn-calc {
+            padding: 5px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .btn-calc:hover {
+            background-color: #e2e2e2;
+        }
+
+        .result-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: #111;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Tính số ngày giữa hai thời điểm</h2>
+
+        <div class="input-row">
+            <label for="fromDate">Từ ngày:</label>
+            <input type="date" id="fromDate" value="2018-05-29">
+        </div>
+
+        <div class="input-row">
+            <label for="toDate">Đến ngày:</label>
+            <input type="date" id="toDate" value="2018-06-30">
+        </div>
+
+        <div>
+            <button class="btn-calc" id="btnCalc">Tính số ngày</button>
+        </div>
+
+        <div class="result-text" id="resultText">Số ngày là: 32</div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            function calculateDays() {
+                const fromVal = $('#fromDate').val();
+                const toVal = $('#toDate').val();
+
+                if (!fromVal || !toVal) {
+                    alert("Vui lòng chọn đầy đủ cả hai mốc thời gian!");
+                    return;
+                }
+
+                const d1 = new Date(fromVal);
+                const d2 = new Date(toVal);
+
+                const diffTime = d2.getTime() - d1.getTime();
+                const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
+
+                $('#resultText').text(`Số ngày là: ${diffDays}`);
+            }
+
+            $('#btnCalc').click(calculateDays);
+        });
+    </script>
+</body>
+</html>

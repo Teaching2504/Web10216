@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 03 - Thống kê chuỗi (String Statistic)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .input-row label {
+            width: 60px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .input-row input {
+            flex-grow: 1;
+            padding: 6px 8px;
+            border: 1px solid #aaa;
+            font-size: 14px;
+        }
+
+        .btn-center {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-statistic {
+            padding: 5px 15px;
+            cursor: pointer;
+            border: 1px solid #888;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .btn-statistic:hover {
+            background-color: #e2e2e2;
+        }
+
+        .result-box {
+            font-size: 14px;
+            line-height: 1.6;
+            padding-left: 50px;
+            font-family: Arial, sans-serif;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>String Statistic</h2>
+
+        <div class="input-row">
+            <label for="txtInput">String:</label>
+            <input type="text" id="txtInput" value="Hello, how are you? 1123425">
+        </div>
+
+        <div class="btn-center">
+            <button class="btn-statistic" onclick="statisticString()">Statistic</button>
+        </div>
+
+        <div class="result-box" id="resultBox"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function statisticString() {
+            const str = document.getElementById("txtInput").value;
+            if (!str) {
+                document.getElementById("resultBox").innerHTML = "Vui lòng nhập chuỗi!";
+                return;
+            }
+
+            // Characters count
+            const charCount = str.length;
+
+            // Words count: tách theo khoảng trắng
+            const words = str.trim().split(/\s+/).filter(w => w.length > 0);
+            const wordCount = words.length;
+
+            // Thống kê ký tự (chữ hoa và chữ số)
+            const charMap = {};
+            for (let i = 0; i < str.length; i++) {
+                let ch = str[i].toUpperCase();
+                // Chỉ đếm ký tự chữ và số
+                if ((ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')) {
+                    charMap[ch] = (charMap[ch] || 0) + 1;
+                }
+            }
+
+            // Sắp xếp các ký tự: chữ số trước, sau đó chữ cái
+            const sortedKeys = Object.keys(charMap).sort((a, b) => {
+                const isNumA = a >= '0' && a <= '9';
+                const isNumB = b >= '0' && b <= '9';
+                if (isNumA && !isNumB) return -1;
+                if (!isNumA && isNumB) return 1;
+                return a.localeCompare(b);
+            });
+
+            let html = `Characters: ${charCount}<br>Words: ${wordCount}<br>`;
+            for (let k of sortedKeys) {
+                html += `Character '${k}': ${charMap[k]}<br>`;
+            }
+
+            document.getElementById("resultBox").innerHTML = html;
+        }
+
+        // Tự động chạy khi mở trang
+        statisticString();
+    </script>
+</body>
+</html>

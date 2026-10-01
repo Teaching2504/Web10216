@@ -1,36 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bài tập 07 - Vẽ SVG</title>
+    <style>
+        .box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px auto;
+            width: 350px;
+            box-shadow: 2px 2px 5px #eee;
+        }
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
-    <svg width="280" height="170" wiew="0 0 280 170">
-        <!--Nền xanh-->
-        <rect x="10" y="10" width="260" height="120" fill="steelblue" />
-        <!--Hình tròn-->
-        <circle cx="140" cy="70" r="45" fill="tomato" />
-        <!--Đường chéo-->
-        <line x1="10" y1="10" x2="270" y2="130" stroke="yellow" stroke-width="4" />
-    </svg>
-    <svg width="280" height="230" viewBox="0 0 280 230">
-        <!--Roof-->
-        <polygon points="140,45 60,110 220,110" fil="#d46d1a" />
-        <!--House Body-->
-        <rect x="80" y="110" width="120" height="90" fill="#8b4513" />
-        <!--Front Door-->
-        <rect x="162" y="156" width="28" height="44" fill="#7a4a1a" />
-        <!--Window-->
-        <rect x="98" y="138"
-        width="36"
-        height="36"
-        fill="#a9d2e8"
-        stroke="black"
-        stroke-width="2"/>
-    </svg>
+    <div class="box">
+        <h2>Bài 1: Vẽ các hình cơ bản</h2>
+        <svg width="280" height="170" viewBox="0 0 280 170">
+            <!-- nền xanh -->
+            <rect x="10" y="10" width="260" height="120" fill="steelblue" />
+            <!-- hình tròn -->
+            <circle cx="140" cy="70" r="45" fill="tomato" />
+            <!-- đường chéo -->
+            <line x1="10" y1="10" x2="270" y2="130" stroke="yellow" stroke-width="4" />
+        </svg>
+    </div>
+
+    <div class="box">
+        <h2>Bài 2: Vẽ ngôi nhà đơn giản</h2>
+        <svg width="280" height="230" viewBox="0 0 280 230">
+            <!-- Roof -->
+            <polygon points="140,45 60,110 220,110" fill="#d46d1a" />
+            <!-- House Body -->
+            <rect x="80" y="110" width="120" height="90" fill="#8b4513" />
+            <!-- Window -->
+            <rect x="98" y="138" width="36" height="36" fill="#a9d2e8" stroke="black" stroke-width="2" />
+            <!-- Front Door -->
+            <rect x="162" y="156" width="28" height="44" fill="#7a4a1a" />
+        </svg>
+    </div>
 </body>
 
 </html>

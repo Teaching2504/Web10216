@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công ty Máy tính ABC - Trang chủ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .wrapper {
+            width: 950px;
+            margin: 15px auto;
+            border: 2px solid #00bcd4;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Header */
+        header {
+            background-color: #00bcd4;
+            padding: 15px 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-auth {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 11px;
+        }
+
+        .header-auth a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .header-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .company-title {
+            color: #ffff00;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #00796b;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item a.nav-link {
+            display: block;
+            padding: 0 14px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 40px;
+            transition: background 0.2s;
+        }
+
+        .nav-item a.nav-link:hover,
+        .nav-item a.nav-link.active {
+            background-color: #004d40;
+            color: #ffff00;
+        }
+
+        /* Dropdown Dịch vụ */
+        .service-dropdown {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #00796b;
+            min-width: 150px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            list-style: none;
+            border-top: 1px solid #4db6ac;
+        }
+
+        .service-dropdown li a {
+            display: block;
+            padding: 8px 14px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            border-bottom: 1px solid #004d40;
+            transition: all 0.2s;
+        }
+
+        .service-dropdown li a:hover {
+            background-color: #004d40;
+            color: #ffff00;
+            padding-left: 18px;
+        }
+
+        .nav-item:hover .service-dropdown {
+            display: block;
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-search input {
+            padding: 3px 6px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .nav-search button {
+            padding: 3px 8px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            background: #e0e0e0;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+
+        /* Layout 3 Columns */
+        #body {
+            background-color: #ffffff;
+        }
+
+        article {
+            display: flex;
+            min-height: 480px;
+        }
+
+        /* Left Aside */
+        aside#left {
+            width: 170px;
+            border-right: 1px solid #b2ebf2;
+            padding: 10px 8px;
+            flex-shrink: 0;
+        }
+
+        .category-group {
+            margin-bottom: 15px;
+        }
+
+        .category-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 10px;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        .category-list {
+            list-style: none;
+            background-color: #e0f7fa;
+            border: 1px solid #b2ebf2;
+            border-top: none;
+        }
+
+        .category-list li a {
+            display: block;
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #006064;
+            text-decoration: none;
+            border-bottom: 1px solid #b2ebf2;
+            transition: background 0.2s;
+        }
+
+        .category-list li a:hover {
+            background-color: #b2ebf2;
+            font-weight: bold;
+        }
+
+        /* Center Section */
+        section {
+            flex-grow: 1;
+            padding: 15px;
+        }
+
+        .section-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 12px;
+            text-align: center;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            border: 1px solid #b2ebf2;
+            padding: 10px;
+            text-align: center;
+            background-color: #fbfbfb;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-card .card-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #00838f;
+        }
+
+        .product-card .card-img {
+            width: 100px;
+            height: 75px;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .product-card .card-price {
+            font-size: 12px;
+            color: #c62828;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .btn-cart {
+            background-color: #00bcd4;
+            color: #ffffff;
+            border: none;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .btn-cart:hover {
+            background-color: #00838f;
+        }
+
+        /* Right Aside */
+        aside#right {
+            width: 180px;
+            border-left: 1px solid #b2ebf2;
+            padding: 10px 8px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .right-box-header {
+            background-color: #00838f;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 8px;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        /* Siêu khuyến mãi chạy từ dưới lên */
+        .promo-scroll-container {
+            height: 160px;
+            border: 1px solid #b2ebf2;
+            background-color: #e0f7fa;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .promo-scroll-content {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            animation: scrollUp 8s linear infinite;
+        }
+
+        @keyframes scrollUp {
+            0% {
+                top: 100%;
+            }
+            100% {
+                top: -160%;
+            }
+        }
+
+        .promo-item {
+            width: 80px;
+            height: 60px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .stat-content {
+            border: 1px solid #b2ebf2;
+            background-color: #e0f7fa;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .link-select {
+            width: 100%;
+            padding: 4px;
+            font-size: 11px;
+            border: 1px solid #b2ebf2;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #00bcd4;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 15px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px auto;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header>
+            <div class="header-auth">
+                <a href="#">Đăng nhập</a>
+                <a href="#">Đăng ký</a>
+                <a href="#">Giỏ hàng (0)</a>
+            </div>
+            <div class="company-title">CÔNG TY MÁY TÍNH ABC</div>
+        </header>
+
+        <!-- Nav -->
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="abc_index.html" class="nav-link active">TRANG CHỦ</a></li>
+                <li class="nav-item"><a href="gioithieu.html" class="nav-link">GIỚI THIỆU</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">DỊCH VỤ ▾</a>
+                    <ul class="service-dropdown">
+                        <li><a href="#">Bảo hành</a></li>
+                        <li><a href="#">Đổi trả</a></li>
+                        <li><a href="#">Sửa chữa tại nhà</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="lienhe.html" class="nav-link">LIÊN HỆ</a></li>
+            </ul>
+
+            <div class="nav-search">
+                <input type="text" placeholder="Nhập từ khóa để tìm...">
+                <button type="button">Tìm</button>
+            </div>
+        </nav>
+
+        <!-- Body -->
+        <div id="body">
+            <article>
+                <!-- Left Sidebar -->
+                <aside id="left">
+                    <div class="category-group">
+                        <div class="category-header">LAPTOP</div>
+                        <ul class="category-list">
+                            <li><a href="laptop_acer.html">Acer</a></li>
+                            <li><a href="laptop_dell.html">Dell</a></li>
+                            <li><a href="#">HP</a></li>
+                            <li><a href="#">Asus</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-header">MÁY BỘ (DESKTOP)</div>
+                        <ul class="category-list">
+                            <li><a href="#">Máy bộ Dell</a></li>
+                            <li><a href="#">Máy bộ HP</a></li>
+                            <li><a href="#">Máy bộ Asus</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="category-group">
+                        <div class="category-header">LINH KIỆN</div>
+                        <ul class="category-list">
+                            <li><a href="#">RAM</a></li>
+                            <li><a href="#">Ổ cứng SSD/HDD</a></li>
+                            <li><a href="#">Mainboard</a></li>
+                            <li><a href="#">VGA Card</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- Section Center: Sản phẩm nổi bật -->
+                <section>
+                    <div class="section-header">SẢN PHẨM NỔI BẬT</div>
+
+                    <div class="products-grid">
+                        <!-- Sản phẩm 1 -->
+                        <div class="product-card">
+                            <div class="card-title">Acer Aspire A314</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 8.500.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+
+                        <!-- Sản phẩm 2 -->
+                        <div class="product-card">
+                            <div class="card-title">Acer Aspire A515</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 9.200.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+
+                        <!-- Sản phẩm 3 -->
+                        <div class="product-card">
+                            <div class="card-title">Acer A714</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 11.500.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+
+                        <!-- Sản phẩm 4 -->
+                        <div class="product-card">
+                            <div class="card-title">Dell Inspiron 3476</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 9.500.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+
+                        <!-- Sản phẩm 5 -->
+                        <div class="product-card">
+                            <div class="card-title">Dell Inspiron 7373</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 12.000.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+
+                        <!-- Sản phẩm 6 -->
+                        <div class="product-card">
+                            <div class="card-title">Dell Vostro 3578</div>
+                            <div class="card-img">💻</div>
+                            <div class="card-price">Đơn giá: 12.300.000đ</div>
+                            <button class="btn-cart" onclick="alert('Đã thêm vào giỏ hàng!')">🛒 Đặt mua</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Sidebar -->
+                <aside id="right">
+                    <div>
+                        <div class="right-box-header">SIÊU KHUYẾN MÃI</div>
+                        <div class="promo-scroll-container">
+                            <div class="promo-scroll-content">
+                                <div class="promo-item" title="Laptop Sale">💻</div>
+                                <div class="promo-item" title="Chuột quang Sale">🖱️</div>
+                                <div class="promo-item" title="Bàn phím cơ Sale">⌨️</div>
+                                <div class="promo-item" title="Màn hình Sale">🖥️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="right-box-header">THỐNG KÊ TRUY CẬP</div>
+                        <div class="stat-content">1000</div>
+                    </div>
+
+                    <div>
+                        <div class="right-box-header">LIÊN KẾT WEBSITE</div>
+                        <select class="link-select" onchange="if(this.value) window.open(this.value, '_blank')">
+                            <option value="">-- Chọn trang liên kết --</option>
+                            <option value="https://google.com">Google</option>
+                            <option value="https://vnexpress.net">VnExpress</option>
+                            <option value="https://it.ou.edu.vn">Khoa CNTT ĐH Mở</option>
+                        </select>
+                    </div>
+                </aside>
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <b>Công ty máy tính ABC</b><br>
+            Địa chỉ: 371 Nguyễn Kiệm - Điện thoại: 12345678
+        </footer>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+</body>
+</html>

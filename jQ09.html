@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 09 - Tùy biến kiểu chữ và danh sách</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            background: #ffffff;
+            border: 1px solid #7a92a5;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .left-col {
+            width: 320px;
+            flex-shrink: 0;
+        }
+
+        .right-col {
+            flex-grow: 1;
+            background-color: #fde8db;
+            border: 1px solid #fbd0b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+        }
+
+        fieldset {
+            border: 1px solid #3b82f6;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        legend {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 4px;
+        }
+
+        .radio-options label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        .color-picker-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .color-picker-row input[type="color"] {
+            width: 45px;
+            height: 26px;
+            border: 1px solid #999;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 4px 10px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        /* Danh sách chuỗi */
+        .items-list {
+            list-style: decimal;
+            padding-left: 25px;
+            margin: 0;
+        }
+
+        .items-list li {
+            padding: 6px 10px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: opacity 0.2s;
+        }
+
+        .items-list li:hover {
+            opacity: 0.8;
+        }
+
+        .items-list li:nth-child(odd) {
+            background-color: #a855f7;
+            color: #ffffff;
+        }
+
+        .items-list li:nth-child(even) {
+            background-color: #67e8f9;
+            color: #0f172a;
+        }
+
+        /* Chữ hiển thị bên phải */
+        .display-text {
+            font-size: 52px;
+            font-weight: 900;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .shadow-effect {
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.45);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Cột trái -->
+        <div class="left-col">
+            <fieldset>
+                <legend>Chọn</legend>
+                <div class="radio-options">
+                    <label><input type="radio" name="fontStyle" value="normal" checked> Chữ bình thường</label>
+                    <label><input type="radio" name="fontStyle" value="shadow"> Chữ có bóng</label>
+                </div>
+
+                <div class="color-picker-row">
+                    <label>Chọn màu chữ:</label>
+                    <input type="color" id="textColorPicker" value="#0000ff">
+                </div>
+
+                <div class="btn-group">
+                    <button id="btnDeleteLast">Xóa phần tử cuối</button>
+                    <button id="btnRestore">Phục hồi</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Click vào một chuỗi</legend>
+                <ol class="items-list" id="stringsList">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JQUERY</li>
+                    <li>JAVASCRIPT</li>
+                </ol>
+            </fieldset>
+        </div>
+
+        <!-- Cột phải -->
+        <div class="right-col">
+            <div class="display-text" id="displayText">HTML</div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let deletedStack = [];
+
+            function updateDisplay() {
+                const color = $('#textColorPicker').val();
+                const style = $('input[name="fontStyle"]:checked').val();
+
+                $('#displayText').css('color', color);
+
+                if (style === 'shadow') {
+                    $('#displayText').addClass('shadow-effect');
+                } else {
+                    $('#displayText').removeClass('shadow-effect');
+                }
+            }
+
+            // Click vào một chuỗi trong danh sách
+            $(document).on('click', '#stringsList li', function() {
+                const text = $(this).text().trim();
+                $('#displayText').text(text);
+                updateDisplay();
+            });
+
+            // Thay đổi màu chữ
+            $('#textColorPicker').on('input change', function() {
+                updateDisplay();
+            });
+
+            // Thay đổi kiểu chữ (bình thường / có bóng)
+            $('input[name="fontStyle"]').change(function() {
+                updateDisplay();
+            });
+
+            // Xóa phần tử cuối
+            $('#btnDeleteLast').click(function() {
+                const $lastItem = $('#stringsList li').last();
+                if ($lastItem.length > 0) {
+                    deletedStack.push($lastItem.text());
+                    $lastItem.remove();
+                } else {
+                    alert("Danh sách đã rỗng!");
+                }
+            });
+
+            // Phục hồi
+            $('#btnRestore').click(function() {
+                if (deletedStack.length > 0) {
+                    const restoredText = deletedStack.pop();
+                    $('#stringsList').append(`<li>${restoredText}</li>`);
+                } else {
+                    alert("Không có phần tử nào để phục hồi!");
+                }
+            });
+
+            // Áp dụng mặc định
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>

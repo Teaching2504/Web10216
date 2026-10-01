@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 10 - Vẽ trên Canvas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            border: 2px solid #0099cc;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            background-color: #00e5ff;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>VẼ TRÊN CANVAS BẰNG JAVASCRIPT</h2>
+
+    <canvas id="myCanvas" width="360" height="360"></canvas>
+
+    <br>
+    <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const cx = 180;
+        const cy = 180;
+        const radius = 130;
+
+        // 1. Vẽ vòng tròn lớn chia làm 4 góc phần tư với 4 màu: Đỏ (trên), Xanh cyan (phải), Xanh lá (dưới), Xanh dương (trái)
+        // Góc trên: Đỏ (từ -3pi/4 đến -pi/4)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, -Math.PI * 3 / 4, -Math.PI / 4);
+        ctx.closePath();
+        ctx.fillStyle = "#ff0000";
+        ctx.fill();
+
+        // Góc phải: Xanh cyan / tím (từ -pi/4 đến pi/4)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, -Math.PI / 4, Math.PI / 4);
+        ctx.closePath();
+        ctx.fillStyle = "#00bcd4";
+        ctx.fill();
+
+        // Góc dưới: Xanh lá (từ pi/4 đến 3pi/4)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, Math.PI / 4, Math.PI * 3 / 4);
+        ctx.closePath();
+        ctx.fillStyle = "#2ecc71";
+        ctx.fill();
+
+        // Góc trái: Xanh dương (từ 3pi/4 đến 5pi/4)
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, Math.PI * 3 / 4, Math.PI * 5 / 4);
+        ctx.closePath();
+        ctx.fillStyle = "#3f51b5";
+        ctx.fill();
+
+        // 2. Vẽ hình thoi / khiên màu vàng ở giữa
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 80);
+        ctx.lineTo(cx + 110, cy);
+        ctx.lineTo(cx, cy + 80);
+        ctx.lineTo(cx - 110, cy);
+        ctx.closePath();
+        ctx.fillStyle = "#ffff00";
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "#ff0000";
+        ctx.stroke();
+
+        // 3. Vẽ chữ "HTML5" màu đỏ nổi bật ở tâm
+        ctx.fillStyle = "#ff0000";
+        ctx.font = "bold 44px Arial, Helvetica, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("HTML5", cx, cy);
+    </script>
+</body>
+</html>

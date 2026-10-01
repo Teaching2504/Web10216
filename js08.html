@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 08 - Tùy chỉnh Banner HTML5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .banner-display {
+            background-color: #ff0000;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            padding: 25px 15px;
+            margin-bottom: 25px;
+            border: 2px solid #b30000;
+            letter-spacing: 1px;
+            word-break: break-word;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .control-row label {
+            width: 120px;
+            font-size: 14px;
+        }
+
+        .control-row input[type="text"] {
+            flex-grow: 1;
+            padding: 6px 8px;
+            font-size: 14px;
+            border: 1px solid #aaa;
+        }
+
+        .control-row input[type="color"] {
+            width: 60px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid #aaa;
+            cursor: pointer;
+        }
+
+        .btn-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 6px 16px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner-display" id="bannerBox">
+            WELCOME HTML5!
+        </div>
+
+        <div class="control-row">
+            <label for="bannerText">Nhập nội dung</label>
+            <input type="text" id="bannerText" value="WELCOME HTML5!">
+        </div>
+
+        <div class="control-row">
+            <label for="bgColor">Màu nền</label>
+            <input type="color" id="bgColor" value="#ff0000">
+        </div>
+
+        <div class="control-row">
+            <label for="textColor">Màu chữ</label>
+            <input type="color" id="textColor" value="#ffffff">
+        </div>
+
+        <div class="btn-center">
+            <button type="button" onclick="updateBanner()">Thực hiện</button>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function updateBanner() {
+            const text = document.getElementById("bannerText").value;
+            const bg = document.getElementById("bgColor").value;
+            const color = document.getElementById("textColor").value;
+
+            const banner = document.getElementById("bannerBox");
+            banner.innerText = text;
+            banner.style.backgroundColor = bg;
+            banner.style.color = color;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập CSS 04 - CSS Animation & Keyframes</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-frame {
+            width: 750px;
+            background: #ffffff;
+            border: 2px solid #336699;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Banner chuyển màu nền và chữ to nhỏ */
+        .banner {
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 35px;
+            border: 1px solid #ff0055;
+            animation: changeBgColor 6s infinite alternate;
+        }
+
+        .banner span {
+            font-weight: bold;
+            color: #111;
+            letter-spacing: 2px;
+            animation: changeFontSize 6s infinite alternate;
+        }
+
+        @keyframes changeBgColor {
+            0% {
+                background-color: #ff007f;
+            }
+            25% {
+                background-color: #ffaa00;
+            }
+            50% {
+                background-color: #00ddff;
+            }
+            75% {
+                background-color: #77ff00;
+            }
+            100% {
+                background-color: #aa00ff;
+            }
+        }
+
+        @keyframes changeFontSize {
+            0% {
+                font-size: 14px;
+            }
+            50% {
+                font-size: 28px;
+            }
+            100% {
+                font-size: 14px;
+            }
+        }
+
+        /* 4 Khung */
+        .boxes-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .box {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Khung 1: Hình tuần tự thay đổi */
+        .box-1 {
+            border: 3px solid #00c3ff;
+            background-size: cover;
+            background-position: center;
+            animation: changeImage 9s infinite;
+        }
+
+        @keyframes changeImage {
+            0%, 30% {
+                background-image: url('images/html.jpg');
+            }
+            33%, 63% {
+                background-image: url('images/css.jpg');
+            }
+            66%, 100% {
+                background-image: url('images/javascript.jpg');
+            }
+        }
+
+        /* Khung 2: Số 2 */
+        .box-2 {
+            background-color: #00ffff;
+            border: 2px dashed #0055ff;
+            font-size: 38px;
+            font-weight: bold;
+            color: #ffe600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Khung 3: Số 3 */
+        .box-3 {
+            background-color: #00ffff;
+            border: 2px dashed #0055ff;
+            font-size: 38px;
+            font-weight: bold;
+            color: #ffe600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Khung 4: Xoay tròn theo chiều kim đồng hồ */
+        .box-4-wrapper {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box-4 {
+            background-color: #0d695b;
+            color: #ffe600;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: spinClockwise 4s linear infinite;
+        }
+
+        @keyframes spinClockwise {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .back-link {
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-frame">
+        <div class="banner">
+            <span>BANNER</span>
+        </div>
+
+        <div class="boxes-row">
+            <div class="box box-1" title="Hình thay đổi tuần tự"></div>
+            <div class="box box-2">2</div>
+            <div class="box box-3">3</div>
+            <div class="box-4-wrapper">
+                <div class="box box-4">Rotate</div>
+            </div>
+        </div>
+    </div>
+
+    <a href="css.html" class="back-link">← Quay lại danh mục CSS</a>
+</body>
+</html>

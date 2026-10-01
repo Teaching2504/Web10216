@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 08 - Di chuyển hình tròn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .stage {
+            width: 100%;
+            height: 350px;
+            border: 2px solid #7a92a5;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #00e5ff;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            cursor: grab;
+            user-select: none;
+            box-shadow: 0 4px 10px rgba(0, 229, 255, 0.4);
+        }
+
+        .circle:active {
+            cursor: grabbing;
+        }
+
+        .instruction {
+            font-size: 13px;
+            color: #555;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="stage" id="stage">
+            <div class="circle" id="circle"></div>
+        </div>
+
+        <div class="instruction">
+            • Có thể dùng <b>chuột kéo thả</b> để di chuyển hình tròn.<br>
+            • Có thể nhấn <b>4 phím mũi tên</b> (←, ↑, →, ↓) trên bàn phím để di chuyển hình tròn.
+        </div>
+
+        <div style="text-align: center;">
+            <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const $stage = $('#stage');
+            const $circle = $('#circle');
+            const step = 20;
+
+            function clampPosition(top, left) {
+                const maxLeft = $stage.width() - $circle.outerWidth();
+                const maxTop = $stage.height() - $circle.outerHeight();
+
+                const clampedLeft = Math.max(0, Math.min(left, maxLeft));
+                const clampedTop = Math.max(0, Math.min(top, maxTop));
+                return { top: clampedTop, left: clampedLeft };
+            }
+
+            // 1. Điều khiển bằng 4 phím mũi tên
+            $(document).keydown(function(e) {
+                const currentPos = $circle.position();
+                let newLeft = currentPos.left;
+                let newTop = currentPos.top;
+
+                switch(e.which) {
+                    case 37: // Left
+                        newLeft -= step;
+                        e.preventDefault();
+                        break;
+                    case 38: // Up
+                        newTop -= step;
+                        e.preventDefault();
+                        break;
+                    case 39: // Right
+                        newLeft += step;
+                        e.preventDefault();
+                        break;
+                    case 40: // Down
+                        newTop += step;
+                        e.preventDefault();
+                        break;
+                    default:
+                        return;
+                }
+
+                const clamped = clampPosition(newTop, newLeft);
+                $circle.css({ top: clamped.top + 'px', left: clamped.left + 'px' });
+            });
+
+            // 2. Kéo thả bằng chuột
+            let isDragging = false;
+            let startX, startY, origX, origY;
+
+            $circle.on('mousedown', function(e) {
+                isDragging = true;
+                startX = e.pageX;
+                startY = e.pageY;
+                const pos = $circle.position();
+                origX = pos.left;
+                origY = pos.top;
+                e.preventDefault();
+            });
+
+            $(document).on('mousemove', function(e) {
+                if (!isDragging) return;
+
+                const deltaX = e.pageX - startX;
+                const deltaY = e.pageY - startY;
+
+                const clamped = clampPosition(origY + deltaY, origX + deltaX);
+                $circle.css({ top: clamped.top + 'px', left: clamped.left + 'px' });
+            });
+
+            $(document).on('mouseup', function() {
+                isDragging = false;
+            });
+        });
+    </script>
+</body>
+</html>

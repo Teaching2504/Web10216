@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 02 - Tính ngày & Đồng hồ thời gian</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            border: 1px solid #c0c6cc;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 20px;
+        }
+
+        .date-display {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 12px;
+        }
+
+        .clock-display {
+            font-size: 18px;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 20px;
+        }
+
+        .btn-view {
+            padding: 6px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+        }
+
+        .btn-view:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="result-title" id="monthYearResult">Tháng ... năm ... có ... ngày</div>
+        
+        <div id="dateTimeArea" style="display: none;">
+            <div class="date-display" id="currentDate"></div>
+            <div class="clock-display" id="currentClock"></div>
+        </div>
+
+        <button class="btn-view" onclick="showDateTime()">Xem ngày giờ</button>
+        <button class="btn-view" onclick="promptMonthYear()" style="margin-left: 10px;">Nhập lại tháng năm</button>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        function getDaysInMonth(month, year) {
+            switch (month) {
+                case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                    return 31;
+                case 4: case 6: case 9: case 11:
+                    return 30;
+                case 2:
+                    return isLeapYear(year) ? 29 : 28;
+                default:
+                    return 0;
+            }
+        }
+
+        function promptMonthYear() {
+            let monthInput = prompt("Nhập tháng", "2");
+            if (monthInput === null) return;
+            let month = parseInt(monthInput);
+
+            let yearInput = prompt("Nhập năm", "2000");
+            if (yearInput === null) return;
+            let year = parseInt(yearInput);
+
+            if (isNaN(month) || month < 1 || month > 12 || isNaN(year) || year < 1) {
+                alert("Tháng hoặc năm không hợp lệ!");
+                return;
+            }
+
+            let days = getDaysInMonth(month, year);
+            document.getElementById("monthYearResult").innerText = `Tháng ${month} năm ${year} có ${days} ngày`;
+        }
+
+        // Tự động hỏi khi load trang
+        window.onload = function() {
+            promptMonthYear();
+        };
+
+        let timer = null;
+        function updateClock() {
+            const now = new Date();
+            const daysOfWeek = ["Chủ nhật", "thứ 2", "thứ 3", "thứ 4", "thứ 5", "thứ 6", "thứ 7"];
+            const dayName = daysOfWeek[now.getDay()];
+            
+            document.getElementById("currentDate").innerText = `Hôm nay, ${dayName} ngày ${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById("currentClock").innerText = `${hours}:${minutes}:${seconds}`;
+        }
+
+        function showDateTime() {
+            document.getElementById("dateTimeArea").style.display = "block";
+            updateClock();
+            if (!timer) {
+                timer = setInterval(updateClock, 1000);
+            }
+        }
+    </script>
+</body>
+</html>

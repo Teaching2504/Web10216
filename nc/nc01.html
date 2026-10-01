@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài nâng cao 01 - Tìm kiếm và thay thế</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-row label {
+            width: 140px;
+            font-size: 13px;
+        }
+
+        .form-row input[type="text"] {
+            width: 250px;
+            padding: 4px 6px;
+            font-size: 13px;
+            border: 1px solid #aaa;
+        }
+
+        .checkbox-label {
+            margin-left: 15px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-group {
+            margin: 12px 0 20px 0;
+        }
+
+        button {
+            padding: 4px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .content-frame {
+            border: 1px solid #7a92a5;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #ffffff;
+        }
+
+        .content-frame h3 {
+            font-size: 15px;
+            font-weight: bold;
+            margin: 12px 0 4px 0;
+        }
+
+        .content-frame h3:first-child {
+            margin-top: 0;
+        }
+
+        .content-frame p {
+            font-size: 13px;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tìm kiếm và thay thế</h2>
+
+        <div class="form-row">
+            <label for="txtFind">Nhập chuỗi cần tìm:</label>
+            <input type="text" id="txtFind" placeholder="Nhập chuỗi cần tìm">
+            <label class="checkbox-label">
+                <input type="checkbox" id="chkCase"> Có phân biệt chữ hoa
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label for="txtReplace">Nhập chuỗi thay thế:</label>
+            <input type="text" id="txtReplace" placeholder="Nhập chuỗi thay thế">
+        </div>
+
+        <div class="btn-group">
+            <button onclick="findAndReplace()">Tìm và thay thế</button>
+            <button onclick="restoreContent()">Khôi phục</button>
+        </div>
+
+        <div class="content-frame" id="contentBox">
+            <h3>CHƯƠNG I. HTML</h3>
+            <p>HTML (HyperText Markup Language) là một ngôn ngữ đánh dấu siêu văn bản, được dùng để tạo ra hầu hết các trang web.</p>
+
+            <h3>CHƯƠNG II. CSS</h3>
+            <p>CSS là một ngôn ngữ định kiểu, một bộ quy tắc để mô tả cách hiển thị của các đối tượng trên trang web</p>
+
+            <h3>CHƯƠNG III. JAVASCRIPT</h3>
+            <p>Javascript là một ngôn ngữ lập trình xử lý trang web động phía client.</p>
+
+            <h3>CHƯƠNG IV. JQUERY</h3>
+            <p>jQuery là một thư viện các hàm JavaScript giúp nhà phát triển giảm thiểu số lượng mã lệnh khi viết code với JavaScript.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        const originalHTML = document.getElementById("contentBox").innerHTML;
+
+        function findAndReplace() {
+            const findStr = document.getElementById("txtFind").value;
+            const replaceStr = document.getElementById("txtReplace").value;
+            const isCase = document.getElementById("chkCase").checked;
+
+            if (!findStr) {
+                alert("Vui lòng nhập chuỗi cần tìm!");
+                return;
+            }
+
+            // Thoát ký tự đặc biệt trong regex
+            const escapedFind = findStr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const flags = isCase ? 'g' : 'gi';
+            const regex = new RegExp(escapedFind, flags);
+
+            const content = document.getElementById("contentBox");
+            content.innerHTML = content.innerHTML.replace(regex, replaceStr);
+        }
+
+        function restoreContent() {
+            document.getElementById("contentBox").innerHTML = originalHTML;
+            document.getElementById("txtFind").value = "";
+            document.getElementById("txtReplace").value = "";
+            document.getElementById("chkCase").checked = false;
+        }
+    </script>
+</body>
+</html>

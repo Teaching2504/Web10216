@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 07 - Đăng ký thành viên</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            margin: 0;
+            border-bottom: 1px solid #7a92a5;
+            letter-spacing: 0.5px;
+        }
+
+        .reg-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .reg-table td {
+            padding: 6px 12px;
+            font-size: 13px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .reg-table td.label-col {
+            width: 140px;
+        }
+
+        input[type="text"], input[type="password"], input[type="date"], select {
+            width: 95%;
+            padding: 4px 6px;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 4px 14px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .result-box {
+            margin: 15px;
+            border: 1px solid #888;
+            padding: 12px 15px;
+            font-size: 13px;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ĐĂNG KÝ THÀNH VIÊN</h2>
+
+        <form id="memberForm" onsubmit="handleRegister(event)">
+            <table class="reg-table">
+                <tbody>
+                    <tr>
+                        <td class="label-col">Tên đăng nhập</td>
+                        <td><input type="text" id="username" placeholder="Nhập tên đăng nhập" required></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Mật khẩu</td>
+                        <td><input type="password" id="password" required></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Ngày sinh</td>
+                        <td><input type="date" id="dob" required></td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Giới tính</td>
+                        <td>
+                            <label><input type="radio" name="gender" value="Nam" checked> Nam</label>
+                            <label style="margin-left: 15px;"><input type="radio" name="gender" value="Nữ"> Nữ</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Vấn đề bạn quan tâm</td>
+                        <td>
+                            <select id="topic">
+                                <option value="Kinh tế">Kinh tế</option>
+                                <option value="Thể thao">Thể thao</option>
+                                <option value="Văn học nghệ thuật" selected>Văn học nghệ thuật</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit">Đăng ký</button>
+                            <button type="button" onclick="handleReset()" style="margin-left: 10px;">Hủy</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <div id="resultArea" style="display: none;">
+            <div class="result-box" id="resultContent"></div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function handleRegister(e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const dobValue = document.getElementById("dob").value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const topic = document.getElementById("topic").value;
+
+            if (!username) {
+                alert("Tên đăng nhập bắt buộc phải nhập!");
+                return;
+            }
+
+            if (!dobValue) {
+                alert("Ngày sinh phải nhập đúng kiểu dữ liệu!");
+                return;
+            }
+
+            // Tính tuổi
+            const birthDate = new Date(dobValue);
+            const currentYear = new Date().getFullYear();
+            const birthYear = birthDate.getFullYear();
+            const age = currentYear - birthYear;
+
+            const html = `
+                Chào mừng <b>${username}</b><br>
+                Bạn là <b>${gender}</b><br>
+                Mật khẩu của bạn có <b>${password.length}</b> ký tự<br>
+                Tuổi bạn là <b>${age}</b><br>
+                Vấn đề bạn quan tâm là <b>${topic}</b>
+            `;
+
+            document.getElementById("resultContent").innerHTML = html;
+            document.getElementById("resultArea").style.display = "block";
+        }
+
+        function handleReset() {
+            document.getElementById("memberForm").reset();
+            document.getElementById("resultArea").style.display = "none";
+        }
+    </script>
+</body>
+</html>

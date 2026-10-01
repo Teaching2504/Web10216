@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập CSS 01 - Định dạng văn bản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #7a92a5;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+            padding: 25px 35px;
+            line-height: 1.6;
+        }
+
+        .shadow-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+            text-shadow: 3px 3px 4px #888888;
+            margin-bottom: 20px;
+        }
+
+        .normal-text {
+            font-size: 15px;
+            color: #333333;
+            margin-bottom: 12px;
+        }
+
+        .capitalize-text {
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: 500;
+            color: #222222;
+            margin: 15px 0;
+        }
+
+        .uppercase-text {
+            text-align: right;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #222222;
+            margin: 15px 0;
+        }
+
+        .lowercase-text {
+            text-transform: lowercase;
+            color: #222222;
+            margin: 15px 0;
+        }
+
+        .dropcap-paragraph {
+            margin-top: 25px;
+            color: #333333;
+            font-size: 15px;
+        }
+
+        .dropcap-paragraph::first-letter {
+            font-size: 48px;
+            font-weight: bold;
+            float: left;
+            line-height: 0.9;
+            padding-right: 8px;
+            padding-top: 2px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .dropcap-paragraph::first-line {
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shadow-text">
+            Dòng này được định dạng có bóng (shadow)
+        </div>
+
+        <div class="normal-text">
+            Văn bản bình thường
+        </div>
+
+        <div class="capitalize-text">
+            Hoa Các Ký Tự Đầu Từ
+        </div>
+
+        <div class="uppercase-text">
+            HOA TẤT CẢ CÁC KÝ TỰ
+        </div>
+
+        <div class="lowercase-text">
+            đoạn này sẽ được chuyển về chữ thường
+        </div>
+
+        <p class="dropcap-paragraph">
+            Đoạn văn bản này có ký tự đầu được định dạng font-size lớn, dòng đầu tiên được in đậm. Nội dung phía sau của đoạn văn bản tiếp tục hiển thị như bình thường theo đúng yêu cầu đề bài của bài thực hành CSS.
+        </p>
+
+        <a class="back-link" href="css.html">← Quay lại danh mục CSS</a>
+    </div>
+</body>
+</html>

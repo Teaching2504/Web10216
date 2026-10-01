@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 03 - Bảng giá vật tư</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border: 1px solid #ffaa00;
+        }
+
+        .price-table th {
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            font-size: 13px;
+            background-color: #f0fdf4;
+            color: #111;
+        }
+
+        .price-table td {
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .price-table td.center {
+            text-align: center;
+        }
+
+        .price-table td.right {
+            text-align: right;
+        }
+
+        /* Style khi đổi màu dòng lẻ */
+        .highlight-odd {
+            background-color: #d81b60 !important;
+            color: #ffffff !important;
+        }
+
+        button {
+            padding: 5px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>BẢNG GIÁ VẬT TƯ</h2>
+
+        <table class="price-table" id="materialsTable">
+            <thead>
+                <tr>
+                    <th>Tên vật tư</th>
+                    <th>Đơn vị tính</th>
+                    <th>Đơn giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cát</td>
+                    <td class="center">Khối</td>
+                    <td class="right">77,000</td>
+                </tr>
+                <tr>
+                    <td>Đá</td>
+                    <td class="center">Khối</td>
+                    <td class="right">90,000</td>
+                </tr>
+                <tr>
+                    <td>Xi măng Hà Tiên loại 1</td>
+                    <td class="center">Bao</td>
+                    <td class="right">120,000</td>
+                </tr>
+                <tr>
+                    <td>Xi măng Hà Tiên loại 2</td>
+                    <td class="center">Bao</td>
+                    <td class="right">100,000</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="background-color: #fcfcfc;">
+                        <button id="btnChangeColor">Đổi màu nền</button>
+                        <button id="btnDefaultColor">Màu nền mặc định</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Đổi màu nền các dòng lẻ (1st, 3rd rows: index 0, 2)
+            $('#btnChangeColor').click(function() {
+                $('#materialsTable tbody tr:nth-child(odd)').addClass('highlight-odd');
+            });
+
+            // Màu nền mặc định
+            $('#btnDefaultColor').click(function() {
+                $('#materialsTable tbody tr').removeClass('highlight-odd');
+            });
+        });
+    </script>
+</body>
+</html>

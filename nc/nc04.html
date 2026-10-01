@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài nâng cao 04 - Cuộc đua kỳ thú</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #3b82f6;
+            background: #ffffff;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-top: 0;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: bold;
+            color: #166534;
+            margin-bottom: 20px;
+            min-height: 20px;
+        }
+
+        .track-box {
+            width: 100%;
+            height: 320px;
+            border: 2px solid #78350f;
+            position: relative;
+            background: linear-gradient(to right, #fef3c7 0%, #ecfdf5 92%, #fee2e2 92%);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .finish-line {
+            position: absolute;
+            right: 50px;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #000,
+                #000 10px,
+                #fff 10px,
+                #fff 20px
+            );
+        }
+
+        .racer-lane {
+            height: 100px;
+            position: relative;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .racer-lane:last-child {
+            border-bottom: none;
+        }
+
+        .racer {
+            width: 75px;
+            height: 75px;
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            user-select: none;
+            transition: left 0.1s linear;
+        }
+
+        .controls {
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 6px 18px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 6px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CUỘC ĐUA KỲ THÚ</h2>
+        <div class="subtitle" id="raceStatus">Ngựa - Rùa - Thỏ</div>
+
+        <div class="track-box" id="track">
+            <div class="finish-line" title="Đích đến"></div>
+
+            <!-- Làn 1: Ngựa -->
+            <div class="racer-lane">
+                <div class="racer" id="horse" style="left: 10px;" title="Ngựa">🐎</div>
+            </div>
+
+            <!-- Làn 2: Rùa -->
+            <div class="racer-lane">
+                <div class="racer" id="turtle" style="left: 10px;" title="Rùa">🐢</div>
+            </div>
+
+            <!-- Làn 3: Thỏ -->
+            <div class="racer-lane">
+                <div class="racer" id="rabbit" style="left: 10px;" title="Thỏ">🐇</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btnPlay" onclick="startRace()">Play</button>
+            <button id="btnStop" onclick="stopRace()">Stop</button>
+            <button id="btnReset" onclick="resetRace()">Reset</button>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        let horsePos = 10;
+        let turtlePos = 10;
+        let rabbitPos = 10;
+        let timer = null;
+        let isRunning = false;
+        let isFinished = false;
+
+        const horseElem = document.getElementById("horse");
+        const turtleElem = document.getElementById("turtle");
+        const rabbitElem = document.getElementById("rabbit");
+        const trackElem = document.getElementById("track");
+        const statusElem = document.getElementById("raceStatus");
+
+        function getFinishLine() {
+            return trackElem.clientWidth - 110;
+        }
+
+        function play() {
+            if (!isRunning) return;
+
+            const finish = getFinishLine();
+
+            // Độ dời ngẫu nhiên cho mỗi tay đua
+            horsePos += Math.floor(Math.random() * 12) + 2;
+            turtlePos += Math.floor(Math.random() * 13) + 2;
+            rabbitPos += Math.floor(Math.random() * 14) + 1;
+
+            horseElem.style.left = horsePos + "px";
+            turtleElem.style.left = turtlePos + "px";
+            rabbitElem.style.left = rabbitPos + "px";
+
+            // Kiểm tra xem ai chạm đích trước
+            let winner = null;
+            if (horsePos >= finish) {
+                winner = "Ngựa";
+            } else if (turtlePos >= finish) {
+                winner = "Rùa";
+            } else if (rabbitPos >= finish) {
+                winner = "Thỏ";
+            }
+
+            if (winner) {
+                clearInterval(timer);
+                timer = null;
+                isRunning = false;
+                isFinished = true;
+                statusElem.innerText = `Ngựa - Rùa - Thỏ --- Kết quả: ${winner} thắng!`;
+            }
+        }
+
+        function startRace() {
+            if (isFinished) {
+                resetRace();
+            }
+            if (!isRunning) {
+                isRunning = true;
+                timer = setInterval(play, 100);
+            }
+        }
+
+        function stopRace() {
+            if (isRunning) {
+                clearInterval(timer);
+                timer = null;
+                isRunning = false;
+            }
+        }
+
+        function resetRace() {
+            stopRace();
+            isFinished = false;
+            horsePos = 10;
+            turtlePos = 10;
+            rabbitPos = 10;
+
+            horseElem.style.left = horsePos + "px";
+            turtleElem.style.left = turtlePos + "px";
+            rabbitElem.style.left = rabbitPos + "px";
+
+            statusElem.innerText = "Ngựa - Rùa - Thỏ";
+        }
+    </script>
+</body>
+</html>

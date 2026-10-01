@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 11 - Vẽ biểu đồ với Google Chart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        fieldset {
+            border: 1px solid #c0c6cc;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+        }
+
+        legend {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 5px;
+        }
+
+        .radio-inline label {
+            margin-right: 20px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-row label {
+            width: 70px;
+            font-size: 13px;
+        }
+
+        .input-row input {
+            width: 320px;
+            padding: 4px 6px;
+            font-size: 13px;
+            border: 1px solid #aaa;
+        }
+
+        .btn-draw {
+            padding: 5px 14px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            margin-left: 15px;
+        }
+
+        .btn-draw:hover {
+            background-color: #e2e2e2;
+        }
+
+        #chart_div {
+            width: 100%;
+            height: 420px;
+            margin-top: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <!-- Google Charts Library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Các dạng biểu đồ</h2>
+
+        <fieldset>
+            <legend>Chart types</legend>
+            <div class="radio-inline">
+                <label><input type="radio" name="chartType" value="Pie" checked> Pie</label>
+                <label><input type="radio" name="chartType" value="Line"> Line</label>
+                <label><input type="radio" name="chartType" value="Column"> Column</label>
+            </div>
+        </fieldset>
+
+        <div style="display: flex; align-items: flex-end;">
+            <div>
+                <div class="input-row">
+                    <label for="txtLabels">Tiêu đề</label>
+                    <input type="text" id="txtLabels" value="Xuất sắc, Giỏi, Khá, Trung bình, Yếu">
+                </div>
+                <div class="input-row">
+                    <label for="txtValues">Giá trị:</label>
+                    <input type="text" id="txtValues" value="10,50,70,80,30">
+                </div>
+            </div>
+            <div>
+                <button class="btn-draw" onclick="drawChart()">Draw Chart</button>
+            </div>
+        </div>
+
+        <div id="chart_div"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script type="text/javascript">
+        let googleLoaded = false;
+        if (typeof google !== 'undefined') {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(() => {
+                googleLoaded = true;
+                drawChart();
+            });
+        }
+
+        function getRandomColors(count) {
+            const colors = ['#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#00bcd4', '#4caf50', '#8bc34a', '#ff9800', '#ff5722'];
+            // Xáo trộn ngẫu nhiên
+            return colors.sort(() => 0.5 - Math.random()).slice(0, count);
+        }
+
+        function drawChart() {
+            const labelsStr = document.getElementById("txtLabels").value;
+            const valuesStr = document.getElementById("txtValues").value;
+            const chartType = document.querySelector('input[name="chartType"]:checked').value;
+
+            const labels = labelsStr.split(',').map(s => s.trim());
+            const values = valuesStr.split(',').map(s => parseFloat(s.trim()));
+
+            if (labels.length !== values.length) {
+                alert("Số lượng tiêu đề và số lượng giá trị phải bằng nhau!");
+                return;
+            }
+
+            if (!googleLoaded || typeof google === 'undefined' || !google.visualization) {
+                document.getElementById('chart_div').innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #555;">
+                        <p><b>Đang tải thư viện Google Chart hoặc offline.</b></p>
+                        <p>Dữ liệu: ${labels.map((l, i) => l + ': ' + values[i]).join(' | ')}</p>
+                    </div>`;
+                return;
+            }
+
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', 'Tiêu chí');
+            data.addColumn('number', 'Giá trị');
+
+            for (let i = 0; i < labels.length; i++) {
+                data.addRow([labels[i], isNaN(values[i]) ? 0 : values[i]]);
+            }
+
+            const randomColors = getRandomColors(labels.length);
+
+            let options = {
+                title: 'Kết quả học tập',
+                titleTextStyle: { fontSize: 16, bold: true },
+                width: '100%',
+                height: 400,
+                legend: { position: 'right' }
+            };
+
+            let chart;
+            if (chartType === 'Pie') {
+                options.is3D = false;
+                options.colors = ['#9c27b0', '#ff9800', '#ff9800', '#4caf50', '#2196f3'];
+                chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            } else if (chartType === 'Line') {
+                options.legend = { position: 'right' };
+                options.series = { 0: { color: '#3f51b5' } };
+                chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            } else if (chartType === 'Column') {
+                options.legend = { position: 'none' };
+                options.colors = ['#26a69a'];
+                chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            }
+
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+</html>

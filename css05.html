@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập CSS 05 - Danh sách Phim Netflix</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #141414;
+            color: #ffffff;
+            overflow-x: hidden;
+            padding-bottom: 50px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            color: #e5e5e5;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero / Spotlight */
+        .hero {
+            position: relative;
+            height: 250px;
+            background: radial-gradient(circle at center, #3a3a3a 0%, #141414 85%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px 40px;
+            border-bottom: 1px solid #222;
+        }
+
+        .hero-content h1 {
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Movie Rows */
+        .row-section {
+            padding: 25px 40px;
+        }
+
+        .row-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .row-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .hot-tag {
+            background-color: #e50914;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .movie-list {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 15px 5px;
+        }
+
+        /* Card with Hover Zoom & Shadow */
+        .movie-card {
+            flex: 0 0 140px;
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        /* Hover: Hình to hơn và có bóng */
+        .movie-card:hover {
+            transform: scale(1.18);
+            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4), 0 8px 16px rgba(0, 0, 0, 0.9);
+            z-index: 10;
+        }
+
+        .movie-info {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .movie-title {
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* Specific poster gradient backgrounds simulating covers */
+        .poster-drishyam {
+            background: linear-gradient(135deg, #1b263b, #0d1b2a);
+        }
+        .poster-encanto {
+            background: linear-gradient(135deg, #f72585, #7209b7);
+        }
+        .poster-wicked {
+            background: linear-gradient(135deg, #2b9348, #004b23);
+        }
+        .poster-jumanji {
+            background: linear-gradient(135deg, #d4a373, #a98467);
+        }
+        .poster-antman {
+            background: linear-gradient(135deg, #9d0208, #370617);
+        }
+        .poster-scary {
+            background: linear-gradient(135deg, #d90429, #2b2d42);
+        }
+        .poster-sinners {
+            background: linear-gradient(135deg, #e85d04, #6a040f);
+        }
+        .poster-manager {
+            background: linear-gradient(135deg, #ffb703, #fb8500);
+        }
+        .poster-us {
+            background: linear-gradient(135deg, #6c757d, #212529);
+        }
+        .poster-wonka {
+            background: linear-gradient(135deg, #7b2cbf, #3c096c);
+        }
+
+        .card-icon {
+            font-size: 34px;
+            text-align: center;
+            margin-bottom: 25px;
+            opacity: 0.85;
+        }
+
+        .nav-back {
+            margin: 30px 40px 0;
+        }
+
+        .nav-back a {
+            color: #e50914;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav-back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">NETFLIX</div>
+        <nav>
+            <a href="#">Trang chủ</a>
+            <a href="#">Phim</a>
+            <a href="#">Thể loại</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Phim nổi bật hôm nay</h1>
+        </div>
+    </div>
+
+    <!-- Hàng Xu hướng -->
+    <div class="row-section">
+        <div class="row-header">
+            <span class="row-title">Xu hướng</span>
+            <span class="hot-tag">HOT</span>
+        </div>
+        <div class="movie-list">
+            <div class="movie-card poster-drishyam">
+                <div class="card-icon">🎬</div>
+                <div class="movie-info"><div class="movie-title">Drishyam 2</div></div>
+            </div>
+            <div class="movie-card poster-encanto">
+                <div class="card-icon">✨</div>
+                <div class="movie-info"><div class="movie-title">Encanto</div></div>
+            </div>
+            <div class="movie-card poster-wicked">
+                <div class="card-icon">🧙‍♀️</div>
+                <div class="movie-info"><div class="movie-title">Wicked</div></div>
+            </div>
+            <div class="movie-card poster-jumanji">
+                <div class="card-icon">🦏</div>
+                <div class="movie-info"><div class="movie-title">Jumanji</div></div>
+            </div>
+            <div class="movie-card poster-antman">
+                <div class="card-icon">⚡</div>
+                <div class="movie-info"><div class="movie-title">Ant-Man</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hàng Mới phát hành -->
+    <div class="row-section">
+        <div class="row-header">
+            <span class="row-title">Mới phát hành</span>
+        </div>
+        <div class="movie-list">
+            <div class="movie-card poster-scary">
+                <div class="card-icon">👻</div>
+                <div class="movie-info"><div class="movie-title">Scary Movie</div></div>
+            </div>
+            <div class="movie-card poster-sinners">
+                <div class="card-icon">🔥</div>
+                <div class="movie-info"><div class="movie-title">Sinners</div></div>
+            </div>
+            <div class="movie-card poster-manager">
+                <div class="card-icon">👔</div>
+                <div class="movie-info"><div class="movie-title">The Manager</div></div>
+            </div>
+            <div class="movie-card poster-us">
+                <div class="card-icon">✂️</div>
+                <div class="movie-info"><div class="movie-title">Us</div></div>
+            </div>
+            <div class="movie-card poster-wonka">
+                <div class="card-icon">🍫</div>
+                <div class="movie-info"><div class="movie-title">Wonka</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-back">
+        <a href="css.html">← Quay lại danh mục CSS</a>
+    </div>
+</body>
+</html>

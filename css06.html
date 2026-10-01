@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập CSS 06 - iPhone 16 Pro Max</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Header & Hero */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, #1d1d1f 0%, #2c2c2e 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px 50px;
+            overflow: hidden;
+        }
+
+        .hero h2 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-banner-inner {
+            position: relative;
+            max-width: 700px;
+            height: 220px;
+            margin: 0 auto;
+            background: radial-gradient(circle at 30% 50%, #434344 0%, #151516 70%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #f5f5f7;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        /* 3 Feature Boxes */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px;
+            background-color: #ffffff;
+        }
+
+        .feature-card {
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fbfbfd;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            min-height: 42px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: #6e6e73;
+            line-height: 1.4;
+        }
+
+        /* Green CTA Banner */
+        .cta-banner {
+            background-color: #28a745;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .cta-banner h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .btn-order {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #1d1d1f;
+            padding: 10px 28px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid #ffffff;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-order:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-back {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .nav-back a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h2>Iphone 16 Promax</h2>
+            <div class="hero-banner-inner">
+                <h1 class="hero-title">Trải nghiệm công nghệ vượt trội</h1>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Dung lượng pin lớn</h3>
+                <p>Thời lượng pin 27 giờ, tăng 17% so với phiên bản trước</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Camera chính 48MP, camera góc siêu rộng</h3>
+                <p>Chụp ảnh chất lượng cao trong mọi điều kiện ánh sáng.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Sạc nhanh không dây MagSafe từ 15W lên 25W</h3>
+                <p>Sạc được 50% pin chỉ với 30 phút cắm sạc</p>
+            </div>
+        </div>
+
+        <div class="cta-banner">
+            <h3>Mua ngay hôm nay và nhận ưu đãi đặc biệt!</h3>
+            <button class="btn-order" onclick="alert('Đã thêm iPhone 16 Pro Max vào đơn đặt hàng!')">Đặt mua</button>
+        </div>
+
+        <div class="nav-back">
+            <a href="css.html">← Quay lại danh mục CSS</a>
+        </div>
+    </div>
+</body>
+</html>

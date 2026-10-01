@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 06 - Di chuyển hình chữ nhật</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .stage {
+            width: 100%;
+            height: 220px;
+            border: 1px solid #cbd5e1;
+            position: relative;
+            overflow: hidden;
+            background-color: #fafbfc;
+            margin-bottom: 15px;
+        }
+
+        .red-box {
+            width: 80px;
+            height: 60px;
+            background-color: #ff0000;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button {
+            padding: 6px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="stage" id="stage">
+            <div class="red-box" id="redBox"></div>
+        </div>
+
+        <div class="btn-group">
+            <button id="btnRight">Move right</button>
+            <button id="btnLeft">Move left</button>
+            <button id="btnUp">Move up</button>
+            <button id="btnDown">Move down</button>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const step = 40;
+            const $box = $('#redBox');
+            const $stage = $('#stage');
+
+            $('#btnRight').click(function() {
+                const maxLeft = $stage.width() - $box.outerWidth();
+                const currentLeft = parseInt($box.css('left')) || 0;
+                const newLeft = Math.min(currentLeft + step, maxLeft);
+                $box.stop().animate({ left: newLeft + 'px' }, 200);
+            });
+
+            $('#btnLeft').click(function() {
+                const currentLeft = parseInt($box.css('left')) || 0;
+                const newLeft = Math.max(currentLeft - step, 0);
+                $box.stop().animate({ left: newLeft + 'px' }, 200);
+            });
+
+            $('#btnUp').click(function() {
+                const currentTop = parseInt($box.css('top')) || 0;
+                const newTop = Math.max(currentTop - step, 0);
+                $box.stop().animate({ top: newTop + 'px' }, 200);
+            });
+
+            $('#btnDown').click(function() {
+                const maxTop = $stage.height() - $box.outerHeight();
+                const currentTop = parseInt($box.css('top')) || 0;
+                const newTop = Math.min(currentTop + step, maxTop);
+                $box.stop().animate({ top: newTop + 'px' }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chơi quay số - Đăng ký mua hàng</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            width: 820px;
+            margin: 15px auto;
+            border: 2px solid #0000cd;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Banner */
+        .banner {
+            background-color: #4a7c29;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #0000cd;
+        }
+
+        .banner-title {
+            color: #ffff00;
+            font-size: 26px; /* x-large */
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Di chuyển chuột lên banner: đỏ, xx-large */
+        .banner-title:hover {
+            color: #ff0000;
+            font-size: 36px; /* xx-large */
+        }
+
+        /* Nav horizontal */
+        nav {
+            background-color: #0000cd;
+            padding: 8px 15px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffea00;
+            background-color: #00008b;
+            font-style: italic;
+        }
+
+        .nav-links a.active {
+            text-decoration: underline;
+        }
+
+        /* Content Layout */
+        .main-layout {
+            display: flex;
+            min-height: 420px;
+        }
+
+        /* Left Aside */
+        .left-aside {
+            width: 140px;
+            background-color: #3b7a30;
+            color: #ffffff;
+            padding: 15px 10px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .left-aside ul {
+            list-style: none;
+        }
+
+        .left-aside li {
+            margin-bottom: 8px;
+        }
+
+        .left-aside a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .left-aside a:hover {
+            text-decoration: underline;
+        }
+
+        /* Center Content */
+        .center-content {
+            flex-grow: 1;
+            padding: 20px 15px;
+            background-color: #ffffff;
+        }
+
+        .form-card {
+            border: 1px solid #7a92a5;
+            padding: 20px;
+            background-color: #e0f2f1;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .form-card h2 {
+            text-align: center;
+            font-size: 16px;
+            color: #006699;
+            margin-bottom: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .form-group label {
+            width: 110px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"] {
+            flex-grow: 1;
+            padding: 4px 6px;
+            font-size: 13px;
+            border: 1px solid #999;
+        }
+
+        .radio-options {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+        }
+
+        .btn-row {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 4px 12px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 0 4px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .error-messages {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #d32f2f;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* Right Aside */
+        .right-aside {
+            width: 150px;
+            padding: 15px 10px;
+            background-color: #ffffff;
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .ad-box {
+            border: 1px solid #81c784;
+            background-color: #e8f5e9;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #2e7d32;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0000cd;
+            color: #ffffff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px auto;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-title">TRÒ CHƠI QUAY SỐ</div>
+        </div>
+
+        <!-- Menu ngang -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="quayso_index.html" class="active">Trang chủ</a></li>
+                <li><a href="quayso.html">Trò chơi quay số</a></li>
+                <li><a href="xucxac.html">Trò chơi quay xucxac</a></li>
+            </ul>
+        </nav>
+
+        <!-- Layout chính -->
+        <div class="main-layout">
+            <!-- Cột trái -->
+            <div class="left-aside">
+                <ul>
+                    <li>• <a href="#">C#</a></li>
+                    <li>• <a href="#">PHP & MySQL</a></li>
+                    <li>• <a href="#">XML</a></li>
+                    <li>• <a href="#">Java</a></li>
+                    <li>• <a href="#">SQL Server</a></li>
+                    <li>• <a href="#">ASP.NET</a></li>
+                    <li>• <a href="#">Android</a></li>
+                    <li>• <a href="#">Windows Phone</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột giữa -->
+            <div class="center-content">
+                <div class="form-card">
+                    <h2>ĐĂNG KÝ MUA HÀNG</h2>
+                    <form id="orderForm" onsubmit="validateOrder(event)">
+                        <div class="form-group">
+                            <label>Họ tên:</label>
+                            <input type="text" id="fullname">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số lượng mua:</label>
+                            <input type="number" id="quantity">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ngày nhận hàng:</label>
+                            <input type="date" id="deliveryDate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Thanh toán:</label>
+                            <div class="radio-options">
+                                <label><input type="radio" name="payment" value="Chuyển Khoản"> Chuyển Khoản</label>
+                                <label><input type="radio" name="payment" value="Trực tiếp khi giao hàng"> Trực tiếp khi giao hàng</label>
+                            </div>
+                        </div>
+
+                        <div class="btn-row">
+                            <button type="submit">Đăng Ký Mua</button>
+                            <button type="button" onclick="resetOrder()">Xóa</button>
+                        </div>
+
+                        <div class="error-messages" id="errorBox"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="right-aside">
+                <div class="ad-box">Vùng quảng cáo 1</div>
+                <div class="ad-box">Vùng quảng cáo 2</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            Bài thực hành Ứng dụng Web
+        </footer>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        function validateOrder(e) {
+            e.preventDefault();
+
+            const fullname = document.getElementById("fullname").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const quantity = document.getElementById("quantity").value.trim();
+            const deliveryDate = document.getElementById("deliveryDate").value;
+            const payment = document.querySelector('input[name="payment"]:checked');
+
+            const errors = [];
+
+            if (!fullname) {
+                errors.push("Họ không được để trống");
+            }
+
+            if (!email || !email.includes("@")) {
+                errors.push("Email phải có ký tự @");
+            }
+
+            if (!quantity || isNaN(quantity) || parseFloat(quantity) <= 0) {
+                errors.push("Số lượng không được để trống và phải lớn hơn 0");
+            }
+
+            if (!deliveryDate) {
+                errors.push("Ngày không được để trống");
+            }
+
+            if (!payment) {
+                errors.push("Bạn phải chọn một kiểu thanh toán");
+            }
+
+            const errorBox = document.getElementById("errorBox");
+
+            if (errors.length > 0) {
+                errorBox.innerHTML = errors.join("<br>");
+            } else {
+                errorBox.innerHTML = "<span style='color: green; font-weight: bold;'>Đăng ký mua hàng thành công!</span>";
+            }
+        }
+
+        function resetOrder() {
+            document.getElementById("orderForm").reset();
+            document.getElementById("errorBox").innerHTML = "";
+        }
+    </script>
+</body>
+</html>

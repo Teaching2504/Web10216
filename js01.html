@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 01 - Bảng cửu chương</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+            background-color: #fcfcfc;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .multi-table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #7a92a5;
+        }
+
+        .multi-table td {
+            border: 1px solid #7a92a5;
+            padding: 10px 18px;
+            vertical-align: top;
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>BẢNG CỬU CHƯƠNG</h2>
+
+    <table class="multi-table" id="tableContainer"></table>
+
+    <script>
+        function generateMultiplicationTable() {
+            let html = "";
+            
+            // Hàng 1: bảng 2 đến 5
+            html += "<tr>";
+            for (let i = 2; i <= 5; i++) {
+                html += "<td>";
+                for (let j = 2; j <= 9; j++) {
+                    html += `${i} x ${j} = ${i * j}<br>`;
+                }
+                html += "</td>";
+            }
+            html += "</tr>";
+
+            // Hàng 2: bảng 6 đến 9
+            html += "<tr>";
+            for (let i = 6; i <= 9; i++) {
+                html += "<td>";
+                for (let j = 2; j <= 9; j++) {
+                    html += `${i} x ${j} = ${i * j}<br>`;
+                }
+                html += "</td>";
+            }
+            html += "</tr>";
+
+            document.getElementById("tableContainer").innerHTML = html;
+        }
+
+        generateMultiplicationTable();
+    </script>
+
+    <br>
+    <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài nâng cao 02 - Quả bóng nảy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .box-container {
+            width: 380px;
+            height: 380px;
+            margin: 0 auto;
+            border: 2px solid #7a92a5;
+            background-color: #c4c4c4;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ball {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ff5252, #b71c1c);
+            position: absolute;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            border: 1px solid #7f0000;
+        }
+
+        .controls {
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 6px 14px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            margin: 0 5px;
+        }
+
+        button:hover {
+            background-color: #e2e2e2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>TRÒ CHƠI QUẢ BÓNG NẢY</h2>
+
+    <div class="box-container" id="box">
+        <div class="ball" id="ball"></div>
+    </div>
+
+    <div class="controls">
+        <button onclick="toggleGame()" id="btnToggle">Tạm dừng</button>
+        <button onclick="resetGame()">Đặt lại</button>
+    </div>
+
+    <div>
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        const box = document.getElementById("box");
+        const ball = document.getElementById("ball");
+
+        const boxWidth = 380;
+        const boxHeight = 380;
+        const ballSize = 34;
+
+        let posX = 173;
+        let posY = 173;
+        let dx = 8;
+        let dy = 6;
+        let timer = null;
+
+        function draw() {
+            posX += dx;
+            posY += dy;
+
+            // Kiểm tra va chạm biên trái / phải
+            if (posX <= 0) {
+                posX = 0;
+                dx = -dx;
+            } else if (posX + ballSize >= boxWidth) {
+                posX = boxWidth - ballSize;
+                dx = -dx;
+            }
+
+            // Kiểm tra va chạm biên trên / dưới
+            if (posY <= 0) {
+                posY = 0;
+                dy = -dy;
+            } else if (posY + ballSize >= boxHeight) {
+                posY = boxHeight - ballSize;
+                dy = -dy;
+            }
+
+            ball.style.left = posX + "px";
+            ball.style.top = posY + "px";
+        }
+
+        function startGame() {
+            if (!timer) {
+                timer = setInterval(draw, 40);
+            }
+        }
+
+        function toggleGame() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+                document.getElementById("btnToggle").innerText = "Tiếp tục";
+            } else {
+                startGame();
+                document.getElementById("btnToggle").innerText = "Tạm dừng";
+            }
+        }
+
+        function resetGame() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+            posX = 173;
+            posY = 173;
+            dx = 8;
+            dy = 6;
+            ball.style.left = posX + "px";
+            ball.style.top = posY + "px";
+            document.getElementById("btnToggle").innerText = "Bắt đầu";
+        }
+
+        // Tự động bắt đầu
+        startGame();
+    </script>
+</body>
+</html>

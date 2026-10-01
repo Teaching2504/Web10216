@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập jQuery 04 - Chọn ô màu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 420px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .instruction {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .palette {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .color-box {
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            border: 1px solid #999;
+            transition: transform 0.15s;
+        }
+
+        .color-box:hover {
+            transform: scale(1.08);
+        }
+
+        .c-blue { background-color: rgb(0, 0, 255); }
+        .c-red { background-color: rgb(255, 0, 0); }
+        .c-purple { background-color: rgb(255, 0, 255); }
+        .c-green { background-color: rgb(0, 255, 0); }
+
+        .selected-text {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            min-height: 20px;
+        }
+
+        .preview-box {
+            width: 100%;
+            height: 180px;
+            border: 2px solid #7a92a5;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="instruction">Click lên các hình vuông:</div>
+
+        <div class="palette">
+            <div class="color-box c-blue" data-name="Xanh dương" data-rgb="rgb(0, 0, 255)"></div>
+            <div class="color-box c-red" data-name="Đỏ" data-rgb="rgb(255, 0, 0)"></div>
+            <div class="color-box c-purple" data-name="Tím" data-rgb="rgb(255, 0, 255)"></div>
+            <div class="color-box c-green" data-name="Xanh lá" data-rgb="rgb(0, 255, 0)"></div>
+        </div>
+
+        <div class="selected-text" id="selectedText"></div>
+
+        <div class="preview-box" id="previewBox"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="jquery.html" class="back-link">← Quay lại danh mục jQuery</a>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.color-box').click(function() {
+                const colorName = $(this).data('name');
+                const rgbValue = $(this).data('rgb');
+
+                $('#selectedText')
+                    .text(`Màu bạn chọn là ${colorName}: ${rgbValue}`)
+                    .css('color', rgbValue);
+
+                $('#previewBox').css('background-color', rgbValue);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài nâng cao 03 - Trò chơi Tic-Tac-Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fa;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            border: 1px solid #7a92a5;
+            background: #ffffff;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .color-settings {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .color-settings label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .color-settings input[type="color"] {
+            width: 32px;
+            height: 24px;
+            border: 1px solid #999;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        canvas {
+            border: 1px solid #b0bec5;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-restart {
+            margin-top: 18px;
+            padding: 5px 14px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+
+        .btn-restart:hover {
+            background-color: #e2e2e2;
+        }
+
+        .status-msg {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            min-height: 24px;
+            color: #111;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Chúc bạn vui vẻ</h2>
+
+        <div class="color-settings">
+            <label>Màu nền: <input type="color" id="bgColor" value="#ffffff"></label>
+            <label>Màu X: <input type="color" id="xColor" value="#0000ff"></label>
+            <label>Màu O: <input type="color" id="oColor" value="#ff0000"></label>
+        </div>
+
+        <canvas id="gameCanvas" width="240" height="240"></canvas>
+
+        <div>
+            <button class="btn-restart" onclick="restartGame()">Chơi lại</button>
+        </div>
+
+        <div class="status-msg" id="statusMessage"></div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const cellSize = 80;
+
+        // Bàn cờ 1 chiều 9 ô (0-8)
+        let board = Array(9).fill(null);
+        let currentPlayer = "X";
+        let isGameOver = false;
+
+        const winLines = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Ngang
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Dọc
+            [0, 4, 8], [2, 4, 6]             // Chéo
+        ];
+
+        function drawBoard() {
+            const bg = document.getElementById("bgColor").value;
+            const xCol = document.getElementById("xColor").value;
+            const oCol = document.getElementById("oColor").value;
+
+            // 1. Vẽ nền
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 2. Vẽ lưới
+            ctx.strokeStyle = "#b0bec5";
+            ctx.lineWidth = 2;
+
+            for (let i = 1; i < 3; i++) {
+                // Đường dọc
+                ctx.beginPath();
+                ctx.moveTo(i * cellSize, 0);
+                ctx.lineTo(i * cellSize, canvas.height);
+                ctx.stroke();
+
+                // Đường ngang
+                ctx.beginPath();
+                ctx.moveTo(0, i * cellSize);
+                ctx.lineTo(canvas.width, i * cellSize);
+                ctx.stroke();
+            }
+
+            // 3. Vẽ X và O
+            for (let i = 0; i < 9; i++) {
+                const col = i % 3;
+                const row = Math.floor(i / 3);
+                const x = col * cellSize;
+                const y = row * cellSize;
+
+                if (board[i] === "X") {
+                    ctx.strokeStyle = xCol;
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(x + 18, y + 18);
+                    ctx.lineTo(x + cellSize - 18, y + cellSize - 18);
+                    ctx.moveTo(x + cellSize - 18, y + 18);
+                    ctx.lineTo(x + 18, y + cellSize - 18);
+                    ctx.stroke();
+                } else if (board[i] === "O") {
+                    ctx.fillStyle = oCol;
+                    ctx.beginPath();
+                    ctx.arc(x + cellSize / 2, y + cellSize / 2, cellSize / 2 - 18, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+
+        function checkWinner() {
+            for (let line of winLines) {
+                const [a, b, c] = line;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return board[a];
+                }
+            }
+            if (board.every(cell => cell !== null)) {
+                return "draw";
+            }
+            return null;
+        }
+
+        canvas.addEventListener("click", function(e) {
+            if (isGameOver) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            const col = Math.floor(clickX / cellSize);
+            const row = Math.floor(clickY / cellSize);
+            const index = row * 3 + col;
+
+            if (index >= 0 && index < 9 && board[index] === null) {
+                board[index] = currentPlayer;
+                drawBoard();
+
+                const winner = checkWinner();
+                if (winner === "draw") {
+                    document.getElementById("statusMessage").innerText = "Bàn cờ đầy!";
+                    isGameOver = true;
+                } else if (winner) {
+                    document.getElementById("statusMessage").innerText = `${winner} thắng!`;
+                    isGameOver = true;
+                } else {
+                    currentPlayer = currentPlayer === "X" ? "O" : "X";
+                }
+            }
+        });
+
+        // Lắng nghe đổi màu
+        document.getElementById("bgColor").addEventListener("input", drawBoard);
+        document.getElementById("xColor").addEventListener("input", drawBoard);
+        document.getElementById("oColor").addEventListener("input", drawBoard);
+
+        function restartGame() {
+            board = Array(9).fill(null);
+            currentPlayer = "X";
+            isGameOver = false;
+            document.getElementById("statusMessage").innerText = "";
+            drawBoard();
+        }
+
+        // Vẽ khởi tạo
+        drawBoard();
+    </script>
+</body>
+</html>

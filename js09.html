@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS 09 - Hồ sơ cá nhân tương tác</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 30px 15px;
+            color: #333;
+        }
+
+        .cv-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 35px 30px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            border: 3px solid #3b82f6;
+            margin-bottom: 12px;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .profile-contact {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Section common */
+        .section {
+            margin-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 18px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        /* Skills */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skill-badge {
+            background-color: #3b82f6;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .btn-blue {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-blue:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-right {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        /* Experience */
+        .exp-item {
+            margin-bottom: 14px;
+        }
+
+        .exp-role {
+            font-size: 14px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .exp-desc {
+            font-size: 12px;
+            color: #555;
+            margin-top: 3px;
+        }
+
+        /* Add Experience Form */
+        .add-box {
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 6px;
+            background-color: #fafbfc;
+        }
+
+        .add-box legend {
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+            padding: 0 6px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+        }
+
+        /* Education */
+        .edu-school {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .edu-time {
+            font-size: 12px;
+            color: #666;
+            margin: 2px 0;
+        }
+
+        .edu-major {
+            font-size: 12px;
+            color: #444;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-card">
+        <div class="profile-header">
+            <div class="avatar">👨‍💻</div>
+            <h1 class="profile-name">Nguyễn Văn A</h1>
+            <p class="profile-contact">Email: nguyen.vana@example.com | Điện thoại: 0123 456 789</p>
+        </div>
+
+        <!-- Kỹ năng -->
+        <div class="section">
+            <h2 class="section-title">Kỹ năng</h2>
+            <div class="skills-list" id="skillsContainer">
+                <span class="skill-badge">HTML</span>
+                <span class="skill-badge">CSS</span>
+                <span class="skill-badge">JavaScript</span>
+            </div>
+            <div class="btn-right">
+                <button class="btn-blue" onclick="addSkill()">Thêm kỹ năng</button>
+            </div>
+        </div>
+
+        <!-- Kinh nghiệm làm việc -->
+        <div class="section">
+            <h2 class="section-title">Kinh nghiệm làm việc</h2>
+            <div id="experienceList">
+                <div class="exp-item">
+                    <div class="exp-role">Frontend Developer tại Công ty ABC</div>
+                    <div class="exp-desc">2018 - 2022 - Phát triển giao diện web và ứng dụng mobile</div>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-role">Project manager tại Công ty XYZ</div>
+                    <div class="exp-desc">2022 - 2024 - Quản lý các dự án phần mềm</div>
+                </div>
+            </div>
+
+            <fieldset class="add-box">
+                <legend>Thêm kinh nghiệm</legend>
+                <div class="form-group">
+                    <label>Kinh nghiệm:</label>
+                    <input type="text" id="txtExpRole" placeholder="Ví dụ: IT Sales Manager">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả:</label>
+                    <input type="text" id="txtExpDesc" placeholder="Ví dụ: Hiện nay - Quản lý và điều hành hoạt động...">
+                </div>
+            </fieldset>
+            <div class="btn-right">
+                <button class="btn-blue" onclick="addExperience()">Thêm kinh nghiệm</button>
+            </div>
+        </div>
+
+        <!-- Học vấn -->
+        <div class="section">
+            <h2 class="section-title">Học vấn</h2>
+            <div>
+                <div class="edu-school">Đại học Công nghệ XYZ</div>
+                <div class="edu-time">2017 - 2021</div>
+                <div class="edu-major">Ngành Công nghệ Thông tin</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="javascript.html" class="back-link">← Quay lại danh mục JavaScript</a>
+    </div>
+
+    <script>
+        function addSkill() {
+            let skill = prompt("Nhập kỹ năng mới:", "ASP.NET");
+            if (skill && skill.trim() !== "") {
+                const badge = document.createElement("span");
+                badge.className = "skill-badge";
+                badge.innerText = skill.trim();
+                document.getElementById("skillsContainer").appendChild(badge);
+            }
+        }
+
+        function addExperience() {
+            const role = document.getElementById("txtExpRole").value.trim();
+            const desc = document.getElementById("txtExpDesc").value.trim();
+
+            if (!role) {
+                alert("Vui lòng nhập tên kinh nghiệm / vị trí!");
+                return;
+            }
+
+            const item = document.createElement("div");
+            item.className = "exp-item";
+
+            const roleDiv = document.createElement("div");
+            roleDiv.className = "exp-role";
+            roleDiv.innerText = role;
+
+            const descDiv = document.createElement("div");
+            descDiv.className = "exp-desc";
+            descDiv.innerText = desc || "Chưa có mô tả chi tiết";
+
+            item.appendChild(roleDiv);
+            item.appendChild(descDiv);
+
+            document.getElementById("experienceList").appendChild(item);
+
+            // Xóa rỗng input
+            document.getElementById("txtExpRole").value = "";
+            document.getElementById("txtExpDesc").value = "";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò chơi quay số - Quay số ngẫu nhiên</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            width: 820px;
+            margin: 15px auto;
+            border: 2px solid #0000cd;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Banner */
+        .banner {
+            background-color: #4a7c29;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid #0000cd;
+        }
+
+        .banner-title {
+            color: #ffff00;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .banner-title:hover {
+            color: #ff0000;
+            font-size: 36px;
+        }
+
+        /* Nav horizontal */
+        nav {
+            background-color: #0000cd;
+            padding: 8px 15px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffea00;
+            background-color: #00008b;
+            font-style: italic;
+        }
+
+        .nav-links a.active {
+            text-decoration: underline;
+        }
+
+        /* Content Layout */
+        .main-layout {
+            display: flex;
+            min-height: 420px;
+        }
+
+        /* Left Aside */
+        .left-aside {
+            width: 140px;
+            background-color: #3b7a30;
+            color: #ffffff;
+            padding: 15px 10px;
+            flex-shrink: 0;
+            font-size: 12px;
+        }
+
+        .left-aside ul {
+            list-style: none;
+        }
+
+        .left-aside li {
+            margin-bottom: 8px;
+        }
+
+        .left-aside a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .left-aside a:hover {
+            text-decoration: underline;
+        }
+
+        /* Center Content */
+        .center-content {
+            flex-grow: 1;
+            padding: 30px 15px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        .game-frame {
+            border: 1px solid #7a92a5;
+            background-color: #eeeeee;
+            padding: 30px 20px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .numbers-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .num-box {
+            width: 75px;
+            height: 85px;
+            background-color: #ffffff;
+            border: 1px solid #999;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: 900;
+            color: #1a237e;
+        }
+
+        .btn-spin {
+            padding: 6px 16px;
+            cursor: pointer;
+            border: 1px solid #7a92a5;
+            background-color: #efefef;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .btn-spin:hover {
+            background-color: #e0e0e0;
+        }
+
+        .total-display {
+            margin-top: 25px;
+            font-size: 38px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        /* Right Aside */
+        .right-aside {
+            width: 150px;
+            padding: 15px 10px;
+            background-color: #ffffff;
+            border-left: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .ad-box {
+            border: 1px solid #81c784;
+            background-color: #e8f5e9;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #2e7d32;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0000cd;
+            color: #ffffff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px auto;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-title">TRÒ CHƠI QUAY SỐ</div>
+        </div>
+
+        <!-- Menu ngang -->
+        <nav>
+            <ul class="nav-links">
+                <li><a href="quayso_index.html">Trang chủ</a></li>
+                <li><a href="quayso.html" class="active">Trò chơi quay số</a></li>
+                <li><a href="xucxac.html">Trò chơi quay xucxac</a></li>
+            </ul>
+        </nav>
+
+        <!-- Layout chính -->
+        <div class="main-layout">
+            <!-- Cột trái -->
+            <div class="left-aside">
+                <ul>
+                    <li>• <a href="#">C#</a></li>
+                    <li>• <a href="#">PHP & MySQL</a></li>
+                    <li>• <a href="#">XML</a></li>
+                    <li>• <a href="#">Java</a></li>
+                    <li>• <a href="#">SQL Server</a></li>
+                    <li>• <a href="#">ASP.NET</a></li>
+                    <li>• <a href="#">Android</a></li>
+                    <li>• <a href="#">Windows Phone</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột giữa -->
+            <div class="center-content">
+                <div class="game-frame">
+                    <div class="numbers-row">
+                        <div class="num-box" id="slot1">1</div>
+                        <div class="num-box" id="slot2">2</div>
+                        <div class="num-box" id="slot3">3</div>
+                    </div>
+
+                    <button class="btn-spin" onclick="spinNumbers()">Quay số</button>
+
+                    <div class="total-display" id="totalScore">6</div>
+                </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="right-aside">
+                <div class="ad-box">Vùng quảng cáo 1</div>
+                <div class="ad-box">Vùng quảng cáo 2</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            Bài thực hành Ứng dụng Web
+        </footer>
+    </div>
+
+    <div style="text-align: center;">
+        <a href="../nangcao.html" class="back-link">← Quay lại danh mục Nâng cao</a>
+    </div>
+
+    <script>
+        function spinNumbers() {
+            // Sinh 3 số ngẫu nhiên từ 1 đến 9
+            const n1 = Math.floor(Math.random() * 9) + 1;
+            const n2 = Math.floor(Math.random() * 9) + 1;
+            const n3 = Math.floor(Math.random() * 9) + 1;
+
+            document.getElementById("slot1").innerText = n1;
+            document.getElementById("slot2").innerText = n2;
+            document.getElementById("slot3").innerText = n3;
+
+            const total = n1 + n2 + n3;
+            document.getElementById("totalScore").innerText = total;
+        }
+    </script>
+</body>
+</html>
